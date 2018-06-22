@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.wrap {
+			padding: 0 200px;
+		}
+		.center {
+			width: 100%;
+			height: 100px;
+			float: left;
+			background: #ff0;
+			
+		}
+		.left {
+			width: 200px;
+			height: 100px;
+			float: left;
+			background: #f0f;
+			margin-left: -100%;
+			position: relative;
+			left: -200px;
+		}
+		.right {
+			width: 200px;
+			height: 100px;
+			float: left;
+			background: #f0f;
+			margin-right: -200px;
+			
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="center">123</div>
+		<div class="left">321</div>
+		<div class="right">123</div>
+	</div>
+</body>
+<script>
+	function Person(nick, age) {
+		this.nick = nick;
+		this.age = age;
+	}
+	Person.prototype.sayName = function() {
+		console.log(this.nick);
+	}
+	var p1 = new Person('二狗',20);
+	var p2 = new Person('三旦',21);
+	p1.sayName();
+	console.log(p1.__proto__ === Person.prototype)
+	console.log(Person.prototype.constructor === Person)
+	console.log(p1.__proto__ === p2.__proto__)
+
+	var arr = [1,2,3];
+	console.dir(arr)
+	console.log(arr.__proto__ === Array.prototype)
+	console.log(Array.prototype.__proto__ === Object.prototype)
+
+	console.log(Object.prototype.__proto__ === null)
+
+</script>
+</html>
