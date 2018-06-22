@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	body,div {margin:0;padding:0;}
+	div {
+		position:absolute;
+		width:66px;
+		height:45px;
+		background:url(img/1.gif) no-repeat;top:100px;
+		left:50px;
+	}
+	p,input {
+		margin:10px;
+	}
+</style>
+</head>
+<body>
+<input type="button" value="根据鼠标点击位置移动">
+<input type="button" value="根据标鼠标轨迹移动">
+<p>请点击按钮激活功能！</p>
+<div></div>
+
+	<script>
+		var aButton = document.getElementsByTagName("input");
+		var oDiv = document.getElementsByTagName("div")[0];
+		var oP = document.getElementsByTagName("p")[0];
+
+		aButton[0].addEventListener("click",function(event){
+			(event || window.event).cancelBubble = true;
+			clearEvent();
+			this.value = this.value + "(已激活)";
+			aButton[1].value = "根据标鼠标轨迹移动";
+			oP.innerHTML = "鼠标点击页面， 人物将移动至鼠标位置！";
+
+			document.onclick = function(event){
+				
+				event = event || window.event;
+
+				event.cancelBubble = true;
+				oDiv.style.background = "url(img/2.gif) no-repeat";
+
+				animation(oDiv,{x:event.clientX,y:event.clientY},function(){
+					oDiv.style.background = "url(img/1.gif) no-repeat";
+				})
+				return false;
+				
+			}
+
+		})
+
+		aButton[1].addEventListener("click",function(){
+			this.value = this.value + "(已激活)";
+			aButton[0].value = "根据鼠标点击位置移动";
+			oP.innerHTML = "按住鼠标左键，在页面划动, 人物将按照鼠标轨迹移动！"
+		})
+
+
+		function animation(obj,target,fnEnd){
+			clearInterval(obj.tiemr)
+			obj.timer = setInterval(function(){
+				move(obj,target,fnEnd);
+			},30)
+			
+		}
+		function move(obj,target,fnEnd){
+			var iX = (target.x - oDiv.offsetLeft) / 5;
+			var iY = (target.y - oDiv.offsetTop) / 5;
+			iX = iX > 0 ? Math.ceil(iX) : Math.floor(iX);
+			iY = iY > 0 ? Math.ceil(iY) : Math.floor(iY);
+			console.log(iY,target.y,oDiv.offsetTop)
+			if (target.x === oDiv.offsetLeft && target.y === oDiv.offsetTop) {
+				console.log(1)
+				clearInterval(obj.timer);
+				fnEnd && fnEnd();
+			} else {
+				oDiv.style.left = oDiv.offsetLeft + iX + "px";
+				oDiv.style.top = oDiv.offsetTop + iY + "px";
+			}
+			
+
+		}
+
+
+		function clearEvent(){
+			document.onmouseover = document.onmouseout = document.onclick = document.onmousedown = null;
+			for (var i = 0; i < aButton.length; i++) {
+				aButton[i].value = aButton[i].value.replace("(已激活)","");
+				aButton[i].onmoudown = aButton[i].onmouseup = function(event){
+					(event || window.event).cancelBubble = true;
+				}
+			}
+		}
+		function getStyle(obj,attr){
+			return window.getComputedStyle ? window.getComputedStyle(obj)[attr] : obj.currentStyle[attr];
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+div{width:400px;height:200px;background:#fef4eb;border:1px solid #f60;margin:0 auto;}
+input{border:0;color:#fff;cursor:pointer;font-weight:700;background:#f60;padding:2px 4px;margin:10px 0 0 10px;}
+</style>
+<body>
+
+
+<div id="box" style="width: 400px; height: 200px; border-color: rgb(255, 102, 0); background-color: rgb(254, 244, 235);">
+	<input type="button" value="Get Style" style="background-color: rgb(255, 102, 0);"><input type="button" value="Set Style" style="background-color: rgb(255, 102, 0);"><input type="button" value="Default Style" style="background-color: rgb(255, 102, 0);">
+</div>
+
+
+
+<script type="text/javascript">
+	var aInput = document.getElementsByTagName("input"),
+		oBox = document.getElementById("box");
+	function css(obj,attr,value){
+		switch (arguments.length) {
+			case 2:
+				if (typeof arguments[1] == "object") {
+					for (var i in attr){
+						obj.style[i] = attr[i];
+						console.log(typeof i)
+					} 
+				}else {
+					return getComputedStyle(obj,null)[attr];
+					
+				}
+					
+				break;
+				
+			case 3:
+				obj.style[attr] = value;
+				break;
+			default:
+				// statements_def
+				break;
+		}
+	}
+	
+	aInput[0].onclick = function(){
+		alert("width:"+ css(oBox,"width")+"\nheight:"+ css(oBox,"height")+ "\nbackground-color:"+css(oBox,"backgroundColor")+"\nborder:"+css(oBox,"borderColor"))
+	}
+	aInput[1].onclick = function(){
+		css(oBox,{width:"200px",height:"150px",borderColor:"ff0",backgroundColor:"#ff0",})
+		for (var i = 0; i < aInput.length; i++) {
+			css(aInput[i],"backgroundColor","#0084ff");
+		}
+	}
+	aInput[2].onclick = function(){
+		css(oBox,{width:"400px",height:"200px",borderColor:"ff0",backgroundColor:"#fef4eb"})
+		for (var i = 0; i < aInput.length; i++) {
+			css(aInput[i],"backgroundColor","#f00");
+		}
+	}
+
+</script>
+
+</body>
+</html>

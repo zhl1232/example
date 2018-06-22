@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		body,div,ul,li {margin:0;padding:0;}
+		li {
+			list-style:none;
+		}
+		body {
+			font:12px/1.5 \5fae\8f6f\96c5\9ed1;
+			background:#000;
+		}
+		#big {
+			position:relative;
+			width:800px;
+			height:auto!important;
+			height:400px;
+			min-height:400px;
+			margin:20px auto;
+			text-align:center;
+		}
+		#title {
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			background:#000;
+			color:#fff;
+			opacity:0.7;
+			filter:alpha(opacity=70);
+			font-size:20px;
+			height:50px;
+		}
+		#title span {
+			padding:0 5px;
+			line-height:50px;
+			display:block;
+		}
+		#big.loading {
+			background:url(img/loading.gif) 50% 50% no-repeat;
+		}
+		#masks_L,#masks_R {
+			position:absolute;
+			top:0;
+			width:400px;
+			height:100%;
+			cursor:pointer;
+			background:#f0f0f0;
+			opacity:0;
+			filter:alpha(opacity=0);
+		}
+		#masks_L {
+			left:0;
+		}
+		#masks_R {
+			right:0;
+		}
+		#btn_L,#btn_R {
+			position:absolute;
+			top:50%;
+			margin-top:-40px;
+			width:39px;
+			height:80px;
+			overflow:hidden;
+			cursor:pointer;
+			text-indent:-9999px;
+			background:url(img/btn.png) no-repeat;
+			opacity:0;
+			filter:alpha(opacity=0);
+		}
+		#btn_L {
+			left:10px;
+			background-position:0 0;
+		}
+		#btn_R {
+			right:10px;
+			background-position:-39px 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="big" class="" style="height: 515px;">
+    	<div id="masks_L"></div>
+    	<div id="masks_R"></div>
+        <div id="btn_L" style="opacity: 0;">左</div>
+        <div id="btn_R" style="opacity: 0;">右</div>
+        <div id="title" style="height: 0px;">
+        	<span style="opacity: 1;">
+        	7月26日，吊车将事故现场的车头残片吊至大型运输车辆上。
+        	</span>
+        </div>
+    	<img src="http://img1.gtimg.com/news/pics/hv1/106/238/825/53706421.jpg" style="width: 800px; height: 515px;">
+	</div>
+
+	<script type="text/javascript">
+		var oBox = document.getElementById("big");
+		var oMasks_L = document.getElementById("masks_L");
+		var oMasks_R = document.getElementById("masks_R");
+		var oBtn_L = document.getElementById("btn_L");
+		var oBtn_R = document.getElementById("btn_R");
+		var oTitle = document.getElementById("title");
+		var oSpan = oTitle.getElementsByTagName("span")[0];
+		var iNow = 0;
+		var aData = [
+		{"imgSrc" : "http://img1.gtimg.com/news/pics/hv1/106/238/825/53706421.jpg", "title" : "7月26日，吊车将事故现场的车头残片吊至大型运输车辆上。"},
+		{"imgSrc" : "http://img1.gtimg.com/news/pics/hv1/105/238/825/53706420.jpg", "title" : "7月26日，一辆大卡车准备驶离事故现场。"},
+		{"imgSrc" : "http://img1.gtimg.com/news/pics/hv1/101/238/825/53706416.jpg", "title" : "7月26日，工人在给最后一节车厢盖上彩条布，准备运离现场。"},
+		{"imgSrc" : "http://img1.gtimg.com/news/pics/hv1/99/238/825/53706414.jpg", "title" : "7月26日，一名工人在事故现场最后一节车厢上作业。"},
+		{"imgSrc" : "http://img1.gtimg.com/news/pics/hv1/100/238/825/53706415.jpg", "title" : "7月26日，工人在给最后一节车厢盖上彩条布，准备运离现场。"}
+		];
+
+		oMasks_L.onmouseover = oBtn_L.onmouseover = function(){
+			animation(oBtn_L,'opacity',100);
+		}
+		oMasks_L.onmouseout = oBtn_L.onmouseout = function(){
+			animation(oBtn_L,'opacity',0);
+		}
+
+		oMasks_R.onmouseover = oBtn_R.onmouseover = function(){
+			animation(oBtn_R,'opacity',100);
+		}
+		oMasks_R.onmouseout = oBtn_R.onmouseout = function(){
+			animation(oBtn_R,'opacity',0);
+		}
+
+		oBtn_L.onclick = function(){
+			if (iNow <= 0) {
+				alert("前面没有图片了!")
+				return;
+			}
+			iNow--;
+			loadImg();
+		}
+		oBtn_R.onclick = function(){
+			if (iNow >= aData.length - 1) {
+				alert("这是最后一张图片了!")
+				return;
+			}
+			iNow++;
+			loadImg();
+		}
+		loadImg();
+		function loadImg(){
+			big.className = "loading";
+			oTitle.style.height = oSpan.style.opacity = 0;
+			var oImg = oBox.getElementsByTagName("img");
+			oImg[0] && oBox.removeChild(oImg[0]);
+			var oTemp = document.createElement("img");
+			var newImg = new Image();
+
+			newImg.onload = function(){
+				oBox.className = "";
+				oTemp.src = this.src;
+				oBox.appendChild(oTemp);
+				oTemp.style.width = (oTemp.offsetWidth > 800 ? 800 : oTemp.offsetWidth) + "px";
+				oSpan.innerHTML = aData[iNow].title;
+				animation(oTitle,'height',50,function(){
+					console.log(1)
+					animation(oSpan,'opacity',100)
+				});
+			}
+
+			newImg.src = aData[iNow].imgSrc;			
+		}
+		
+		function animation(obj,attr,target,fn){
+			clearInterval(obj.timer)
+			obj.timer = setInterval(function(){
+				move(obj,attr,target,fn);
+			},50);
+		}
+		function move(obj,attr,target,fn){
+			var unit = 'px';
+			target = parseFloat( target );
+			var init = parseFloat( getStyle(obj,attr) );
+			if (attr === 'opacity') {
+				unit = '';
+				init = init * 100;
+			}
+			var iSpeed = (target - init) / 5;
+			iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+			
+
+			if (attr === 'opacity') {
+				obj.style[attr] = (init + iSpeed) / 100;
+			} else {
+				
+				obj.style[attr] = init + iSpeed + unit;
+				console.log(1,init,iSpeed)
+			}
+
+			if ( init === target ) {				
+				clearInterval( obj.timer );
+				fn && fn();
+			}
+		}
+		
+    	function getStyle(obj,attr){
+    		return window.getComputedStyle ? window.getComputedStyle(obj)[attr] : obj.currentStyle[attr];
+    	}
+	</script>
+</body>
+</html>

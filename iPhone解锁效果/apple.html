@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+	
+	<style type="text/css">
+		#box {
+			margin: 100px auto;
+		}
+		#body {
+			width:276px;
+			height:576px;
+			border-radius:30px;
+			border:5px solid #E9C9C5;
+			background:white;			
+			margin:10px auto;		
+		}
+
+		#sound {
+			width:4px;
+			height:25px;
+			background:#E9C9C5;
+			margin:60px 0 0 0;
+			position:relative;
+			right:7px;
+		}
+
+		#sound:before {
+			width:4px;
+			height:40px;
+			background:#E9C9C5;
+			display:inline-block;
+			content:"";
+			margin:55px 0 20px;;		
+		}
+
+		#sound:after {
+			width:4px;
+			height:40px;
+			background:#E9C9C5;
+			display:inline-block;
+			content:"";
+			margin:-8px 0 0 0;
+			
+		}
+
+		#sleep {
+			width:4px;
+			height:40px;
+			background:#E9C9C5;
+			margin:0px 280px;
+		}
+
+		#camera {
+			width:6px;
+			height:6px;
+			border-radius:50%;
+			background:black;
+			margin:0 auto;
+			position:relative;
+			top:-110px;
+		}
+
+		#camera:before {
+			width:9px;
+			height:9px;
+			border-radius:50%;
+			background:black;
+			margin:18px auto;
+			content:"";
+			display:inline-block;
+			position:relative;
+			right:45px;
+		}
+
+
+		#ear {
+			width:50px;
+			height:6px;
+			border-radius:25%;
+			background:black;
+			margin:20px auto;
+			display:inline-block;
+			position:relative;
+			top:-116px;
+			left:115px;
+		}
+
+		#screen {
+			width:250px;
+			height:450px;
+			background: url("img/1.jpg") no-repeat 0/cover;
+			position:relative;
+			top:-116px;
+			left:13px;
+		}
+
+		#home {
+			width:40px;
+			height:40px;
+			border-radius:50%;
+			border:2px solid #E9C9C5;
+			margin:auto;
+			position:relative;
+			top:-107px;
+		}
+		
+		#lock span {
+			position: absolute;
+			left: 19px;
+			bottom: 23px;
+			width: 66px;
+			height: 44px;
+			background: url(img/btn.jpg) no-repeat;
+			cursor: pointer;
+		}
+	</style>
+  <title>Document</title>
+ </head>
+ <body>
+
+	
+	<div id="box">
+		<div id="body">		
+		<div id="sound"></div>
+		<div id="sleep"></div>
+		<div id="camera"></div>
+		<div id="ear"></div>
+		<div id="screen">
+			<div id="lock">
+				<span></span>
+			</div>
+		</div>
+		<div id="home"></div>
+		
+	</div>
+	<script type="text/javascript">
+		var screen = document.getElementById('screen');
+		var oSpan = document.getElementsByTagName("span")[0];
+		var mouseDownX,mouseMoveX;
+		var drag = false;
+		oSpan.onmousedown = function(event){
+			drag = true;
+			event = event || window.event;
+			mouseDownX = event.clientX;
+		}
+		document.onmousemove = function(event){
+			if (!drag) return false;
+			this.setCapture && this.setCapture(); //鼠标捕获
+
+			event = event || window.event;
+		 	mouseMoveX = event.clientX;
+		 	var target = mouseMoveX - mouseDownX;
+
+		 	target = target < 20 ? 20 : target;
+		 	target = target > 166 ? 166 : target;
+		 	oSpan.style.left = target + 'px';
+		}
+		document.onmouseup = function(event){
+			drag = false;
+			if (oSpan.offsetLeft < 166/2+19) {
+				animation(oSpan,'left','19px');
+			} else if (oSpan.offsetLeft >= 166/2+19){
+				animation(oSpan,'left','166px',function(){	
+					screen.style.background = "url('img/2.jpg') no-repeat 0/cover";
+					oSpan.style.display = 'none';
+				});				
+			}
+		}
+
+		function animation(obj,attr,target,fnEnd){
+			obj.timer = setInterval(function(){
+				move(obj,attr,target,fnEnd);
+			},30)
+		}
+		
+		function move(obj,attr,target,fnEnd){
+			var init = obj.offsetLeft;
+			target = parseFloat( target );
+			var speed = (target - init) / 5;
+			speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+			if (target === init) {
+				fnEnd && fnEnd();
+				clearInterval(obj.timer);
+			} else {
+				console.log(init,speed)
+				obj.style[attr] = init + speed + 'px';
+			}			
+		}
+	</script>
+
+ </body>
+</html>

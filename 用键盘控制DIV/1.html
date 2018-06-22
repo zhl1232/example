@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style type="text/css">
+html,body{overflow:hidden;}
+body{margin:0;padding:0;}
+pre{color:green;padding:10px 15px;background:#f0f0f0;border:1px dotted #333;font:12px/1.5 Courier New;margin:12px;}
+span{color:#999;}
+#box{position:absolute;top:50px;left:300px;width:100px;height:100px;background:red;}
+</style>
+
+
+<body>
+<pre>红色方块为键盘操作区域，您可以进行如下操作：
+
+上：↑ 下：↓ 左：← 右：→
+
+Ctrl + 1 : 背景变为绿色
+Ctrl + 2 : 背景变为黄色
+Ctrl + 3 : 背景变为蓝色
+Ctrl + ↑ : 放大
+Ctrl + ↓ : 缩小
+</pre>
+<div id="box"></div>
+
+
+
+
+<script type="text/javascript">
+'use strict';
+var oDiv = document.getElementById("box");
+document.onkeydown = function(event){
+    var keyCode = event.keyCode;
+    var style = oDiv.style;
+    function getValue(arrt){
+        return parseInt(getComputedStyle(oDiv,null)[arrt]);
+    }
+    var speed = 10;
+   switch (keyCode) {
+
+    case 37:
+        // left
+        style.left = (getValue("left") - speed) + "px";        
+        break;
+    case 38:
+        // up
+        style.top = (getValue("top") - speed) + "px";
+        break;
+    case 39:
+        // right
+        style.left = (getValue("left") + speed) + "px";
+        break;
+    case 40:
+        // down
+        style.top = (getValue("top") + speed) + "px";
+        break;
+    case 17&&48:
+        // down
+        style.background = "#ff0";
+        break;
+
+
+    }
+}
+
+
+</script>
+
+</body>
+</html>

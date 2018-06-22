@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        *{margin: 0;padding: 0;}
+        ul {
+            position: absolute;
+            width: 100px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #eaead7;
+            list-style: none;
+        }
+        li {
+            position: relative;
+            line-height: 25px;
+        }
+        li:hover {
+            background: #999;
+        }
+        a:hover {
+            background: #999;
+        }
+
+        ul i {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url("01.png") no-repeat;
+        }
+        .cut {
+            background-position: 0 0;
+        }
+        .copy {
+            background-position: 0 -24px;
+        }
+        .paste {
+            background-position: 0 -48px;
+        }
+        a { 
+            display:block;
+            margin-left: 25px;
+            padding-left: 5px;
+            color: #000;
+            background: #fff;
+            text-decoration: none;         
+        }
+
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <i class="cut"></i>
+            <a href="javascript:;">剪切</a>
+        </li>
+        <li>
+            <i class="copy"></i>
+            <a href="javascript:;">复制</a>
+        </li>
+        <li>
+            <i class="paste"></i>
+            <a href="javascript:;">粘贴</a>
+        </li>
+    </ul>
+    <script type="text/javascript">
+        var oUl = document.getElementsByTagName("ul")[0];
+        oUl.style.display = 'none';
+        document.oncontextmenu = function(e){
+            oUl.style.display = 'block';
+            oUl.style.top = e.clientY + "px";
+            oUl.style.left = e.clientX + "px";
+            return false;
+        }
+        document.onclick = function(){
+            oUl.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

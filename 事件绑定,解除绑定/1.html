@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	
+</style>
+<body>
+
+
+<input type="button" value="毫无用处的按钮">
+<input type="button" value="绑定click">
+<input type="button" value="解除绑定">
+
+<script type="text/javascript">
+	var aInput = document.getElementsByTagName("input");
+	
+	
+	aInput[1].onclick = function(){
+		aInput[0].addEventListener("click",play);
+		aInput[0].value = "我可以点击了";
+	}
+	aInput[2].onclick = function(){
+		aInput[0].removeEventListener("click",play);
+		aInput[0].value = "毫无用处的按钮";
+	}
+	function play(){
+		alert("123");
+	}
+</script>
+
+</body>
+</html>

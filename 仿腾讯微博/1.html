@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+
+		body {
+			background: #3c3a3b;
+			font: 12px/1.5 \5b8b\4f53;
+		}
+		.container {
+			width: 500px;
+			
+			background: #fff;
+			border-radius: 5px;
+			margin: 50px auto;
+			padding: 20px 15px;
+			box-sizing: border-box;
+		}
+		.username {
+			width: 155px;
+			line-height: 25px;
+			padding-left: 5px;
+			border: 1px solid #d0d0d0;
+			border-radius: 5px;
+			vertical-align: middle;
+			box-shadow: 1px 1px 2px 2px #f2f2f2 inset;
+		}
+		.face {
+			display: inline-block;
+			list-style: none;
+			vertical-align: middle;
+		}
+
+		.face li {
+			float: left;
+		}
+		.face li img {
+			width: 30px;
+			height: 30px;
+			margin-right: 6px;
+			border-radius: 5px;
+			cursor: pointer;
+			opacity: .5;
+		}
+
+		.face li .current,.hover {
+			width: 28px;
+			height: 28px;
+			border: 1px solid #f00;
+			opacity: 1;
+		}
+
+		textarea {
+			width: 440px;
+			height: 70px;
+			resize: none;
+			padding: 5px;
+			margin-top: 10px;
+			border: 1px solid #d0d0d0;
+			border-radius: 5px;
+			box-shadow: 1px 1px 2px 2px #f2f2f2 inset;
+		}
+
+		textarea:focus {
+			outline-color: #7abb2c;
+		}
+
+		.broadcast-box {
+			
+			height: 80px;
+			background: url("images/boxBG.jpg") repeat-x;
+			color: #999;
+			text-align: right;
+
+		}
+		.broadcast-box strong {
+			font: 30px/30px Georgia, Tahoma, Arial;
+		}
+		.broadcast-but {
+			
+			width: 112px;
+			height: 30px;
+			border: none;
+			margin-top: 10px;
+			margin-right: 20px;
+			vertical-align: bottom;
+			background: url(images/btn.png) no-repeat;
+			cursor: pointer;
+		}
+		.broadcast-but:hover {
+			background-position: 0 -30px;
+		}
+
+		.list li {
+			position: relative;
+			min-height: 60px;
+			padding: 15px 0;
+			border-bottom: 1px dashed #d8d8d8; 
+			list-style: none;
+		}
+
+		.list li img {
+			display: inline;
+			vertical-align: text-top;
+		}
+
+		.list .content {
+
+			width: 400px;
+			display: inline-block;
+			margin-left: 10px;
+			vertical-align: text-top;
+		}
+		.list .time {
+			width: 400px;
+			padding-left: 60px;
+			margin-top: 5px;
+		}
+
+		.list .time a {
+			position: absolute;
+			right: 20px;
+		}
+
+		i {
+			font: 12px/1.5 \5b8b\4f53;
+			word-wrap: break-word;
+		}
+
+		.del {
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2>来 , 说说你在做什么 , 想什么</h2>
+		<div class="">
+			<input type="text" class="username" placeholder="输入你的名字">
+			<ul class="face">
+				<li><img src="images/face.gif" class="current"></li>
+				<li><img src="images/face1.gif"></li>
+				<li><img src="images/face2.gif"></li>
+				<li><img src="images/face3.gif"></li>
+				<li><img src="images/face4.gif"></li>
+				<li><img src="images/face5.gif"></li>
+				<li><img src="images/face6.gif"></li>
+				<li><img src="images/face7.gif"></li>
+			</ul>
+		</div>
+		<textarea placeholder="输入内容" maxlength="140"></textarea>
+		<div class="broadcast-box">
+			<span>还能输入</span>
+			<strong>140</strong>
+			<span>个字</span>
+			<input type="button" class="broadcast-but">
+		</div>
+		<div class="list">
+			<ul>
+				<li>
+					<img src="images/face2.gif" alt="">
+					<div class="content">
+						<a href="javascript:;">name</a>:
+						<i class="text">按CTRL+ENTER可以发布</i>
+					</div>
+					<div class="time">
+						2月6日
+						<a href="javascript:;" class="del">删除</a>	
+					</div>									
+				</li>
+				<li>
+					<img src="images/face2.gif" alt="">
+					<div class="content">
+						<a href="javascript:;">name</a>:
+						<i class="text">新增删除功能</i>
+					</div>
+					<div class="time">
+						2月6日
+						<a href="javascript:;" class="del">删除</a>	
+					</div>									
+				</li>
+				<li>
+					<img src="images/face2.gif" alt="">
+					<div class="content">
+						<a href="javascript:;">name</a>:
+						<i class="text">新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能新增选择头像功能 多字数行高测试</i>
+					</div>
+					<div class="time">
+						2月6日
+						<a href="javascript:;" class="del">删除</a>
+					</div>
+										
+				</li>
+
+				<li>
+					<img src="images/face2.gif" alt="">
+					<div class="content">
+						<a href="javascript:;">name</a>:
+						<i class="text">头像选择没优化,事件绑定逻辑,删除性能没优化</i>
+					</div>
+					<div class="time">
+						2月6日
+						<a href="javascript:;" class="del">删除</a>	
+					</div>
+									
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var faceList = document.getElementsByTagName("img");
+		var userName = document.getElementsByClassName("username")[0];
+		var sub = document.getElementsByClassName("broadcast-but")[0];
+		var textarea = document.getElementsByTagName("textarea")[0];
+		var list = document.getElementsByClassName("list")[0];
+		var oUl = list.getElementsByTagName("ul")[0];
+		var aLi = oUl.getElementsByTagName("li");
+		var del = document.getElementsByClassName("del");
+		var textNum = document.getElementsByTagName("strong")[0];
+		var imgSrc = "images/face.gif";
+
+
+		//li移入移出效果
+		function delHover(){
+			for (var i = 0; i < aLi.length; i++) {
+				aLi[i].index = i;
+				aLi[i].onmousemove = function(e){
+	 				this.style.background = "#f5f5f5";
+	 				this.getElementsByClassName("del")[0].style.display = "inline-block";
+				}
+				aLi[i].onmouseout = function(e){
+					this.style.background = "#fff";
+					this.getElementsByClassName("del")[0].style.display = "none";
+				}
+			}
+		}
+		//li删除函数
+		function delFn(){
+			for (var i = 0; i < del.length; i++) {			
+				del[i].onclick = function(e){
+					oUl.removeChild(e.target.parentNode.parentNode)
+				}
+				del[i].style.display = "none";
+			}
+		}	
+
+		//广播新建插入li
+		function show(){
+			var d = new Date;
+			var date = d.getMonth() + "月" + d.getDate() + "日" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+
+			var oLi = document.createElement("li");
+			var oImg = document.createElement("img");
+			oImg.setAttribute("src",imgSrc);
+
+			var content = document.createElement("div");
+			content.className = "content";
+
+			var aName = document.createElement("a");
+			aName.setAttribute("href","javascript:;")
+			aName.innerText = userName.value;
+			content.appendChild(aName);
+			
+			var nameText = document.createTextNode(": ");
+			content.appendChild(nameText);
+
+			var iText = document.createElement("i");
+			iText.innerText = textarea.value;
+			content.appendChild(iText);
+
+			var time = document.createElement("div");
+			time.className = "time";
+			time.innerHTML = date + "<a href='javascript:;' class='del'>删除</a>";
+
+
+			var nameReg = /[u4e00-\u9fa5\w]{2,8}/;
+			var reg = /^\s*$/;
+			//名字输入判断
+			if (userName.value.match(nameReg)) {				
+			} else if (userName.value.match(reg)) {
+				alert("请填写你的名字");
+				userName.focus();
+				return;
+			} else {
+				alert("\u59d3\u540d\u75312-8\u4f4d\u5b57\u6bcd\u3001\u6570\u5b57\u3001\u4e0b\u5212\u7ebf\u3001\u6c49\u5b57\u7ec4\u6210\uff01")
+				userName.focus();
+				return;
+			}
+			//内容输入是否为空
+			if (textarea.value.match(reg)) {
+				alert("说点什么吧");
+				textarea.focus();
+				return;
+			}
+
+
+			oLi.appendChild(oImg);
+			oLi.appendChild(content);
+			oLi.appendChild(time);
+			oUl.insertBefore(oLi,oUl.getElementsByTagName("li")[0]);
+
+			delFn();  //插入后,调用函数,刷新循环绑定事件
+			delHover();  //插入后,调用函数,刷新循环绑定事件
+		}
+					
+		delFn();  //调用函数,绑定事件
+		delHover();  //调用函数,绑定事件
+		
+
+		//头像
+		for (var i = faceList.length - 1; i >= 0; i--) {
+			faceList[i].onmouseover = function(){
+				for (var i = faceList.length - 1; i >= 0; i--) {
+					faceList[i].className = "";
+				}
+				this.className = "current";
+				imgSrc = this.getAttribute("src");
+			}
+		}
+
+		//名字框获取焦点改变外边框颜色
+		userName.onfocus = function(){
+			this.style.outlineColor = "#7abb2c";
+		}
+
+	
+		//输入内容剩余字数
+		textarea.onkeyup = function(){			
+			if (textarea.value.length > 140) {
+				textNum.innerText = 0;
+			} else {
+				textNum.innerText = 140 - textarea.value.length;
+			}
+		}
+
+		//点击发送广播
+		sub.onclick = show;
+
+		//CTRL+ENTER发送广播
+		document.onkeydown = function(e){
+			if (e.ctrlKey && (e.keyCode == 13)) {
+				show();
+			}
+		}
+
+
+	</script>
+</body>
+</html>
