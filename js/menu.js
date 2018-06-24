@@ -75,7 +75,7 @@ window.onload = function () {
       //   seconC[i].classList.remove("seconFocus");
       // }
       // this.classList.add("seconFocus");
-      iframe.src = `/${this.innerHTML}/`;
+      iframe.src = `./${this.innerHTML}/`;
     }
   }
 
