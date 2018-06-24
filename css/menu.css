@@ -123,12 +123,14 @@
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-#menu #open .navBox ul li .secondary {
+#menu #open .navBox ul li .secondary, 
+#menu #open .navBox ul li .item {
   overflow: hidden;
   height: 0;
   transition: all 0.6s ease;
 }
-#menu #open .navBox ul li .secondary h3 {
+#menu #open .navBox ul li .secondary h3, 
+#menu #open .navBox ul li .item h3 {
   padding: 0.1rem 0;
   text-align: center;
   font-size: 0.13rem;
@@ -137,10 +139,13 @@
   border-bottom: 0.8px solid #42495d;
   transition: all 0.4s ease;
 }
-#menu #open .navBox ul li .secondary h3:hover {
+#menu #open .navBox ul li .secondary h3:hover,
+#menu #open .navBox ul li .item h3:hover 
+{
   background-color: #1acbfc;
 }
-#menu #open .navBox ul li .secondary .seconFocus {
+#menu #open .navBox ul li .secondary .seconFocus, 
+#menu #open .navBox ul li .item .seconFocus{
   background-color: #1acbfc;
   -webkit-box-shadow: 3px 3px 3px #aa8c51;
   -moz-box-shadow: 3px 3px 3px #aa8c51;
