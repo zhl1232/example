@@ -60,6 +60,14 @@ window.onload = function () {
 
   // 子导航点击事件
   var iframe = this.document.getElementById("iframe");
+
+  var seconC = document.querySelectorAll(".item h3")
+  for (var i = 0; i < seconC.length; i++) {
+    seconC[i].onclick = function () {
+      iframe.src = `https://github.com/zhl1232/${this.innerHTML}/`;
+    }
+  }
+
   var seconC = document.querySelectorAll(".secondary h3")
   for (var i = 0; i < seconC.length; i++) {
     seconC[i].onclick = function () {
@@ -68,9 +76,9 @@ window.onload = function () {
       // }
       // this.classList.add("seconFocus");
       iframe.src = `/${this.innerHTML}/`;
-      console.log(this.innerHTML)
     }
   }
+
 
   // 隐藏菜单
   var obscure = document.querySelector(".navH span");
