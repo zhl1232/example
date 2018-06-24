@@ -61,9 +61,9 @@ window.onload = function () {
   // 子导航点击事件
   var iframe = this.document.getElementById("iframe");
 
-  var seconC = document.querySelectorAll(".item h3")
-  for (var i = 0; i < seconC.length; i++) {
-    seconC[i].onclick = function () {
+  var seconB = document.querySelectorAll(".item h3")
+  for (var i = 0; i < seconB.length; i++) {
+    seconB[i].onclick = function () {
       iframe.src = `https://github.com/zhl1232/${this.innerHTML}/`;
     }
   }
