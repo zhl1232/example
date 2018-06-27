@@ -54,7 +54,6 @@ window.onload = function () {
         this.classList.remove("obtain");
         this.classList.add("obFocus");
       }
-
     }
   }
 
@@ -64,7 +63,8 @@ window.onload = function () {
   var seconB = document.querySelectorAll(".item h3")
   for (var i = 0; i < seconB.length; i++) {
     seconB[i].onclick = function () {
-      iframe.src = `https://github.com/zhl1232/${this.innerHTML}/`;
+      let a = `<a href="https://github.com/zhl1232/${this.innerHTML}/">${this.innerHTML}</a>`;
+      iframe.appendChild(a);
     }
   }
 
