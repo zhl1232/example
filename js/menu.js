@@ -63,8 +63,15 @@ window.onload = function () {
   var seconB = document.querySelectorAll(".item h3")
   for (var i = 0; i < seconB.length; i++) {
     seconB[i].onclick = function () {
-      let a = `<a href="https://github.com/zhl1232/${this.innerHTML}/">${this.innerHTML}</a>`;
-      iframe.appendChild(a);
+      let a = `https://github.com/zhl1232/${this.innerHTML}/`;
+      iframe.src = "./完整项目";
+      // console.log(a)
+      window.frames[0].document.write(
+      `因为有后台无法展示,</p>
+        而且GitHub设置了csp,</p>
+          仓库页也无法内嵌, so</p>`)
+      window.frames[0].document.write(`<a href=${a} target="_blank">${this.innerHTML}</a>`)
+      // console.log(window.frames[0].document.body)
     }
   }
 
