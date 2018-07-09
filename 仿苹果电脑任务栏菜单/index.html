@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {margin: 0;padding: 0;}
+    #menu {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+    }
+    img {
+      width: 64px;
+    }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <img src="img/1.png" />
+    <img src="img/2.png" />
+    <img src="img/3.png" />
+    <img src="img/4.png" />
+    <img src="img/5.png" />
+    <img src="img/6.png" />
+    <img src="img/7.png" />
+    <img src="img/8.png" />
+  </div>
+  <script>
+    let aImgs = document.getElementsByTagName("img");
+    for (let i = 0; i < aImgs.length; i++) {
+      aImgs[i].index = i;
+      aImgs[i].onmouseover = function() {
+        this.style.width = "128px";
+        aImgs[this.index - 1].style.width = "96px";
+        aImgs[this.index + 1].style.width = "96px";
+      }
+      aImgs[i].onmouseout = function() {
+        this.style.width = "64px";
+        aImgs[this.index - 1].style.width = "64px";
+        aImgs[this.index + 1].style.width = "64px";
+      }
+    }
+
+  </script>
+</body>
+</html>
