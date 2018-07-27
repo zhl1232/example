@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Restaurant {
+      constructor(money, seat, staffList) {
+        this.money = money,
+          this.seat = seat,
+          this.staffList = staffList
+      }
+      hire(staff) {
+
+        this.staffList.push(staff);
+        console.log(this.staffList)
+      }
+      dismissal(staff) {
+        let index = this.staffList.indexOf(staff);
+        this.staffList.splice(index, 1);
+        index = null;
+      }
+    }
+    class Staff {
+      constructor(ID, name, salary) {
+        this.ID = ID,
+          this.name = name,
+          this.salary = salary
+      }
+      completeTask() {
+        console.log('完成一次工作')
+      }
+    }
+    class Waiter extends Staff {
+      completeTask() {
+        if (Array.isArray(arguments)) {
+          console.log('记录点菜')
+        } else {
+          console.log('上菜')
+        }
+      }
+    }
+    class Cook extends Staff {
+      completeTask() {
+        console.log('烹饪出菜品')
+      }
+    }
+    class Client {
+      constructor() {
+
+      }
+      order() {
+        console.log('点菜')
+      }
+      eat() {
+        console.log('吃')
+      }
+    }
+    class Menu {
+      constructor(name, cost, price) {
+        this.name = name,
+          this.cost = cost,
+          this.price = price
+      }
+    }
+
+    var ifeRestaurant = new Restaurant(
+      1000000,
+      20,
+      []
+    );
+
+    var newCook = new Cook("009", "Tony", 10000);
+    newCook.completeTask()
+    console.log(newCook)
+
+    ifeRestaurant.hire(newCook);
+
+    console.log(ifeRestaurant.staffList);
+
+    ifeRestaurant.dismissal(newCook);
+    console.log(ifeRestaurant.staffList);
+  </script>
+</body>
+
+</html>
