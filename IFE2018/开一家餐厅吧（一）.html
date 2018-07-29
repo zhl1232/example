@@ -36,8 +36,8 @@
       }
     }
     class Waiter extends Staff {
-      completeTask() {
-        if (Array.isArray(arguments)) {
+      completeTask(agr) {
+        if (Array.isArray(agr)) {
           console.log('记录点菜')
         } else {
           console.log('上菜')
