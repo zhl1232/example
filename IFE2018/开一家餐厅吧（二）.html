@@ -40,11 +40,15 @@
     class Waiter extends Staff {
       completeTask(agr) {
         if (Array.isArray(agr)) {
-
-          console.log(`记录点菜,客人${clientList[0].name}点了${agr[0]}`)
+          setTimeout(() => {
+            console.log(`记录点菜,客人${clientList[0].name}点了${agr[0]}`)
+          }, 300);
+          
         } else {
-          console.log(`客人${clientList[0].name}的菜已经上齐`)
-          clientList[0].eat();
+          setTimeout(() => {
+            console.log(`客人${clientList[0].name}的菜已经上齐`)
+            clientList[0].eat();
+          }, 500);          
         }
       }
     }
@@ -145,7 +149,7 @@
       // var tempClient = JSON.parse(JSON.stringify(newClient));
       console.log(`来了一位新客人,排在第${clientList.length+1}位,名字${newClient.name}`)
       clientList.push(newClient);
-    }, 2000);
+    }, 4000);
     
     var isSeat = setInterval(() => {
       if (ifeRestaurant.seat > 0 && clientList[0]) {
