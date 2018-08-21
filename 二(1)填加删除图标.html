@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html,body {
+      height: 100%;
+    }
+    div {
+      position: absolute;
+    }
+    #firm {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="tu">图标</button>
+  点击图标,鼠标变为十字可以填加图例
+  <br>
+  填加完图例,点击图例可以删除
+
+  <span id="firm">   
+    确定是否要保存,确定保存,取消删除
+    <button id="yes">确定</button>
+    <button id="no">取消</button>
+  </span>
+
+  <script>
+    
+    class icon {
+      constructor(e) {
+        this.div = document.createElement('div');
+        this.div.style.width = '20px';
+        this.div.style.height = '20px';
+        this.div.style.background = 'red';
+        this.div.style.left = `${e.clientX}px`;
+        this.div.style.top = `${e.clientY}px`;
+      }
+      verify() {
+        document.body.appendChild(this.div)
+      }
+    }
+
+    function result() {
+      if (flag === true) {
+        document.body.style.cursor = 'crosshair'
+      } else {
+        document.body.style.cursor = 'default'
+      }
+    }
+
+
+    var icons = [];
+    var flag = false;
+    var yes = document.getElementById('yes');
+    var no = document.getElementById('no');
+    var tu = document.getElementById('tu');
+    var firm = document.getElementById('firm');
+
+    tu.onclick = function(e) {
+      event.stopPropagation();
+      flag = flag === false ? true : false;
+      icons = [];
+      result();
+    }
+    document.body.onclick = function(e) {
+      if (e.target.nodeName.toLowerCase() === 'div') {
+        var r = confirm("是否要删除?");
+        if (r == true) {
+          document.body.removeChild(e.target)
+        }
+      }
+    
+      if (!flag) {
+        return;
+      }
+
+      let newIcon = new icon(e);
+      newIcon.verify();
+      firm.style.display = 'block';
+      icons.push(newIcon);        
+    }
+
+    yes.onclick = function() {
+      flag = false;
+      result();
+      firm.style.display = 'none';
+    }
+    no.onclick = function(params) {
+      flag = false;
+      result();
+      firm.style.display = 'none';
+      for (const items of icons) {
+        document.body.removeChild(items.div)
+      }   
+    }
+  </script>
+</body>
+</html>

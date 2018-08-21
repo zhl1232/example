@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #container {
+      width: 800px;
+      height: 600px;
+      overflow: hidden;
+    }
+    #img {
+      position: absolute;
+      
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <img src="http://pic7.photophoto.cn/20080630/0034034847468703_b.jpg" alt="图片" id="img">
+  </div>
+  <script>
+    //简单写了下实现过程,不知道详细逻辑,也没封装
+    var oImg = document.getElementById('img');
+    var num = 1;
+    oImg.onmousewheel = function(e) {
+
+      if (e.wheelDelta > 0) {
+        num += 0.1;
+        oImg.style.transform = `scale(${num})`;
+        if ( num > 1 ) {
+          oImg.style.cursor = 'move';
+        }
+      } else {
+        num -= 0.1;
+        if (num <= 0.1) {
+          return;
+        }else if (num <= 1) {
+          oImg.style.cursor = 'default';
+        }
+        oImg.style.transform = `scale(${num})`
+      }
+    }
+    
+
+    var Drag = false;
+    var initX, initY;
+    oImg.onmousedown = function(e) {
+      Drag = true;
+      initX = e.clientX - oImg.offsetLeft;
+      initY = e.clientY - oImg.offsetTop;
+    }
+    document.onmousemove = function(e) {
+      if (!Drag) return;
+      e.preventDefault(); 
+      var iL = e.clientX - initX;
+      var iT = e.clientY - initY;
+      oImg.style.top = `${iT}px`;
+      oImg.style.left = `${iL}px`
+    }
+
+    document.onmouseup = function(e) {
+      Drag = false;
+    }
+  </script>
+</body>
+</html>
