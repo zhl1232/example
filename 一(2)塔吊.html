@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="btns">
+    <button id="btn1">1号塔吊</button>
+  </div>
+  <button id="add">+++</button>
+  <script>
+    //一 2）以下图中2为塔吊管理，点击2部分为添加塔吊，要求实现：每个按钮只能添加一次，点击第二次时第一次添加标点自动删除，其它按钮同样需求，点击加号自动生成2号添加；
+    //用单例模式解决,不过单例模式不是删除,是返回,如果业务需求删除,可以改成删除
+
+    var oBtns = document.getElementById('btns');
+    oBtns.onclick = function (e) {
+
+　　　var e = e || window.event;
+　　　var target = e.target || e.srcElement;
+　　　if (target.nodeName.toLowerCase() == 'button') {
+        singleton.createTaDiao(target);
+　　　}
+　　}
+
+    var singleton = (function () {
+        var div = null;
+
+        class taDiao {
+          constructor(params) {
+            this.div = document.createElement('div');
+            this.div.innerHTML = params;
+            document.body.appendChild(this.div);
+          }          
+        }
+        
+        return {
+          createTaDiao: function(params) {
+            // console.log(params)
+            if (!params.div) {
+              params.div = new taDiao(params.innerHTML);
+            }
+            return params.div;
+          } 
+        }
+      })();
+
+      // document.getElementById('btn1').onclick = function () {
+      //   var taDiao = createTaDiao();
+      // };
+
+      function add(num) {
+        num = document.getElementsByTagName('button').length;
+        var btn = document.createElement('button');
+        btn.innerHTML = `${num}号塔吊`;
+        btn.setAttribute('id', `btn${num}`);
+        oBtns.appendChild(btn);
+      }
+      document.getElementById('add').onclick = function () {
+        add();
+      };
+  </script>
+</body>
+</html>
