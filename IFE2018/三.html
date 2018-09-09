@@ -5,20 +5,21 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <style>
-    
     #client-list {
       float: left;
-      width: 150px;     
+      width: 150px;
       margin-top: 20px;
       text-align: center;
     }
+
     #restaurant {
       text-align: center;
     }
+
     #restaurant span {
-      display: inline-block;    
-      margin:  0 20px 0 10px;
-      
+      display: inline-block;
+      margin: 0 20px 0 10px;
+
     }
   </style>
 </head>
@@ -36,7 +37,6 @@
     服务员:<span id="waiter">0</span>
   </div>
   <script>
-
     function clientListView() {
       var oDiv = document.getElementById('client-list');
       var oClientList = oDiv.getElementsByTagName('ol')[0];
@@ -55,28 +55,40 @@
       var oMoney = document.getElementById('money');
       var oCook = document.getElementById('cook');
       var oWaiter = document.getElementById('waiter');
-      oSeat.innerHTML = ifeRestaurant.seat;
-      oMoney.innerHTML = ifeRestaurant.money;
-      
-      oCook.innerHTML = ifeRestaurant.staffList[1].length;      
-      oWaiter.innerHTML = ifeRestaurant.staffList[0].length;
+      oSeat.innerHTML = ief.seat.length;
+      oMoney.innerHTML = ief.money;
+
+      oCook.innerHTML = ief.staffList[1].length;
+      oWaiter.innerHTML = ief.staffList[0].length;
     }
-
-
-
     class Restaurant {
       constructor(money, seat, staffList) {
         this.money = money,
-        this.seat = seat,
-        this.staffList = staffList
+          this.seat = seat,
+          this.staffList = staffList
+      }
+      startBusiness() {
+        console.log(`餐厅开业,资金${this.money},座位${this.seat.length}`);
+        restaurantView()
+        setInterval(() => {
+          var num = ~~(Math.random() * 1000);
+          var newClient = new Client(`client${num}`);
+          //上客
+          console.log(`来了一位新客人,排在第${clientList.length + 1}位,名字${newClient.name}`)
+          clientList.push(newClient);
+          clientListView();
+        }, 5000)
       }
       hire(staff) {
-        if (staff.ID <= 100) {
+        if (staff.ID < 100) {
           this.staffList[0].push(staff);
+          console.log(`新招服务员,名字${staff.name},薪资${staff.salary},现在共有服务员${ief.staffList[0].length}位`);
         } else if (staff.ID <= 200) {
           this.staffList[1].push(staff);
+          console.log(`新招厨师,名字${staff.name},薪资${staff.salary},现在共有厨师${ief.staffList[1].length}位`);
         }
         this.money -= staff.salary;   //招人扣工资;
+        restaurantView()
       }
       dismissal(staff) {
         let index = this.staffList.indexOf(staff);
@@ -84,26 +96,62 @@
         index = null;
       }
     }
+
+    class Seat {
+      constructor(ID) {
+        this.ID = ID;
+      }
+    }
+
+
+
     class Staff {
       constructor(ID, name, salary) {
-        this.ID = ID,  //1xx 服务员,2xx厨师
-        this.name = name,
-        this.salary = salary
+        this.ID = ID,  //xx 服务员,1xx厨师
+          this.name = name,
+          this.salary = salary
       }
       completeTask() {
         console.log('完成一次工作')
       }
-
-
     }
     class Waiter extends Staff {
+
+      work() {
+        console.log(`${this.name}正在工作`)
+      }
+      toCook(menu) {
+        console.log(`客人${clientList[0].name}点了${menu.name},服务员${this.name}记录点菜`)
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log(`服务员${this.name}将客人${clientList[0].name}点的菜单通知厨师`);
+            resolve(clientList[0], menu)
+          }, 500);
+        }).then(() => {
+          this.cook = ief.staffList[1].shift(); //厨师数量 -1
+          this.cook.cooking(clientList[0], menu)
+          restaurantView()
+        })
+      }
+      serving(client, menu) {
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log(`${client.seat.ID}号桌客人的${menu.name}由${this.name}端上`);
+          }, 500);
+          resolve()
+        }).then(() => {
+
+        })
+
+      }
+      goBackCook() {
+
+      }
+      rest() {
+
+      }
       completeTask(menu, workWaiter) {
         if (Array.isArray(menu)) {
-          
-          console.log(`服务员${workWaiter.name}记录点菜,客人${clientList[0].name}点了${menu[0].name}`)
-          setTimeout(() => {
-            cook.completeTask(menu, workWaiter); //服务员告诉厨师
-          }, 500);
         } else {
           setTimeout(() => {
             console.log(workWaiter)
@@ -113,84 +161,92 @@
         }
       }
     }
-
-
     class Cook extends Staff {
-      completeTask(menu, workWaiter) {
-        ifeRestaurant.money -= menu[0].cost;
+      cooking(client, menu) {
+        ief.money -= menu.cost;
         restaurantView()  //更新金钱
-        setTimeout(() => {
-          console.log(`客人${clientList[0].name}的${menu[0].name}已经烹饪好,用时${menu[0].time/1000}`)       
-          workWaiter.completeTask(menu[0], workWaiter);  //上菜
-        }, menu[0].time);
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            console.log(`客人${client.name}的${menu.name}已经烹饪好,用时${menu.time / 1000}`)
+            resolve(this, client, menu)
+          }, menu.time);
+
+        }).then(() => {
+          ief.staffList[1].push(this)
+          client.waiter.serving(client, menu)
+          restaurantView()   //更新厨师
+        })
       }
     }
-
 
     class Client {
       constructor(name) {
         this.name = name
       }
-      order() {
-        ifeRestaurant.seat -= 1;  //客人坐下点菜,位置-1
-        var waiterList = ifeRestaurant.staffList[0];
-        var workWaiter = waiterList.shift();  //空闲服务员-1
+      orderDishes() {
 
-        restaurantView();  //更新服务员数量
-        if (ifeRestaurant.seat <= 0 || waiterList <= 0) {   //没有座位或者没有服务员
-          clearInterval(isSeat);   //不在查看有没有位置,有没有客人
+        this.seat = ief.seat.shift()  //客人坐下点菜,位置-1
+        console.log('客人坐下');
+
+        if (ief.staffList[0].length <= 0) {
+          return
+        } else {
+          this.waiter = ief.staffList[0].shift(); //服务员服务,服务员-1               
+          console.log(`${this.waiter.name}为客人${this.name}点菜`);
         }
-        let num = window.randomNum(0, 9);
+
+        this.waiter.work()
+        restaurantView();  //更新服务员数量
+
         new Promise((resolve, reject) => {
-          console.log(`客人${clientList[0].name}点菜`)         
-          setTimeout(() => {            
-            console.log(`客人${clientList[0].name}点了${[menu[num].name]}`)
-            resolve(function() {
-              
-            })           
+          console.log(`点菜中...`);
+          setTimeout(() => {
+
+            resolve(this.waiter, menu)
           }, 3000);
-        }).then( function() {
-          workWaiter.completeTask([menu[num]], workWaiter) //服务员点菜
+
+        }).then(() => {
+          this.waiter.toCook(menu[this.num()])
         })
+
       }
       eat(menu) {
         console.log(`客人${clientList[0].name}正在吃饭`)
         setTimeout(() => {
           console.log(`客人${clientList[0].name}吃完饭了`)
           console.log(`客人${clientList[0].name}结帐离开,收${menu.price}元`)
-
-          ifeRestaurant.money += menu.price;
+          ief.money += menu.price;
           clientList.splice(0, 1);
           console.log(`现在一共有${clientList.length + 1}位客人在排队`)
-          ifeRestaurant.seat += 1;
+          ief.seat += 1;
           clientListView();
           restaurantView();
           isSeat = setInterval(() => {
-            if (ifeRestaurant.seat > 0 && clientList[0]) {
+            if (ief.seat > 0 && clientList[0]) {
               clientList[0].order();
             }
           }, 1000)
         }, 2000);
       }
-
       num() {
         return ~~(Math.random() * 10)
       }
-
     }
     class Menu {
       constructor(name, cost, price, time) {
         this.name = name,
-        this.cost = cost,
-        this.price = price,
-        this.time = time
+          this.cost = cost,
+          this.price = price,
+          this.time = time
       }
     }
 
-    
+    function randomNum(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-    var cook = new Cook(200, 'cook1', 5000);
-    var waiter = new Waiter(100, 'waiter1', 3000);
     var clientList = [];
     var menu = [];
     var dishes = [
@@ -209,35 +265,30 @@
       menu.push(new Menu(...dishes[i]))
     }
 
-    var ifeRestaurant = new Restaurant(
-      100000,
-      1,
-      [[],[]] // 0 waiter, 1 cook
+
+    var cook = new Cook(101, 'cook1', 5000);
+    var waiter = new Waiter(001, 'waiter1', 3000);
+    var seat = new Seat(001);
+    var ief = new Restaurant(
+      100000,   //资金
+      [seat],         //座位
+      [[], []] // 0 waiter, 1 cook
     );
-    ifeRestaurant.hire(cook);
-    ifeRestaurant.hire(waiter);
 
 
-    function randomNum(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    setInterval(() => {
-      var num = ~~(Math.random() * 1000);
-      var newClient = new Client(`client${num}`);
-      //上客
-      console.log(`来了一位新客人,排在第${clientList.length + 1}位,名字${newClient.name}`)
-      clientList.push(newClient);
-      clientListView();
-    }, randomNum(3, 10) * 1000);
+    ief.startBusiness();
+    ief.hire(cook);
+    ief.hire(waiter);
 
     var isSeat = setInterval(() => {
-      if (ifeRestaurant.seat > 0 && clientList[0] && ifeRestaurant.staffList[0].length > 0) {
-        clientList[0].order();
+      if (ief.seat.length <= 0 || clientList.length <= 0) {
+        return
+      } else {
+        clientList[0].orderDishes()
       }
     }, 1000)
+
+
 
   </script>
 </body>

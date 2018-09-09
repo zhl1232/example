@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //数组值为数字,1KW个以下.数组再多就得用堆排序
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; 
+    }
+    var array = [];
+    for (let i = 0; i < 10000000; i++) {
+      array.push(getRandomIntInclusive(1, 100)) 
+    }
+
+    var temp = {};
+    function fn(array) {
+      for (let i = 0; i < array.length; i++) {       
+        if (!temp[array[i]]) {          
+          temp[array[i]] = 1
+        } else {
+          temp[array[i]] += 1 
+        }        
+      }
+    }
+    fn(array)
+   
+    var keys = Object.keys(temp)
+    
+    // var maxNum = 0, maxEle;
+    // for (var i = 0, l = keys.length; i < l; i++) {    
+    //   if (temp[keys[i]] > maxNum) {
+    //     maxNum = temp[keys[i]]
+    //     maxEle = keys[i]
+    //   }      
+    // }
+    keys.sort(function(a, b) {
+      return temp[b] - temp[a]
+    })
+    console.log(keys);
+    console.log(keys[0], temp[+keys[0]]);
+    console.log(keys[1], temp[+keys[1]]);
+    console.log(keys[2], temp[+keys[2]]);
+
+  </script>
+</body>
+</html>

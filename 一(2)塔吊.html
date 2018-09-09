@@ -26,8 +26,6 @@
 　　}
 
     var singleton = (function () {
-        var div = null;
-
         class taDiao {
           constructor(params) {
             this.div = document.createElement('div');
@@ -47,10 +45,6 @@
         }
       })();
 
-      // document.getElementById('btn1').onclick = function () {
-      //   var taDiao = createTaDiao();
-      // };
-
       function add(num) {
         num = document.getElementsByTagName('button').length;
         var btn = document.createElement('button');
@@ -61,6 +55,8 @@
       document.getElementById('add').onclick = function () {
         add();
       };
+      
+ 
   </script>
 </body>
 </html>
